@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/dist/jquery.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/webjars/vue/2.6.10/dist/vue.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.7/css/bootstrap.css"/>
+</head>
+<body>
+<div id="app" class="container">
+    <nav class="nav nav-tabs">
+        <li class="active"><a>添加</a></li>
+        <li><a>展示</a></li>
+    </nav>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>编号</td>
+            <td>姓名</td>
+            <td>手机号码</td>
+            <td>邮箱</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr v-for="item in list">
+
+            <td>{{item.empId}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.phone}}</td>
+            <td>{{item.email}}</td>
+
+            <td colspan="2">
+                <button class="btn btn-info" @click="toUpdate(item)" data-toggle="modal" data->修改</button>
+                <button class="btn btn-danger">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav >
+        <ul class="pagination">
+            <li><a>1</a></li>
+            <li><a>2</a></li>
+        </ul>
+    </nav>
+</div>
+<script>
+    new Vue({
+        el:"#app",
+        data(){
+            return{
+                // emp:{
+                //     id:"",
+                //     name:"",
+                //     empId:"",
+                //     phone:"",
+                //     email:""
+                // },
+                list:[]
+            }
+        },mounted(){
+            this.select(1);
+        },methods:{
+            select(page){
+                var vm=this;
+                $.ajax({
+                    url:'http://localhost:8080/list?page='+page,
+                    contType:"application/json",
+                    dataType:"json",
+                    type:"get",
+                    success:function(result){
+                        vm.list=result.list;
+                    }
+                })
+            },toUpdate(o){
+
+
+
+            }
+
+        }
+    })
+</script>
+</body>
+</html>

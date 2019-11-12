@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.EmpMapper">
+<insert id="insert" parameterType="com.my.model.Emp" keyProperty="id" useGeneratedKeys="true">
+    insert into emp(`name`,empId,phone,email) values(#{name},#{empId},#{phone},#{email})
+</insert>
+    <select id="selectByAll" resultType="com.my.model.Emp">
+        select*from emp
+    </select>
+    <select id="selectByPage" parameterType="java.lang.Integer" resultType="com.my.model.Emp">
+        select *from emp limit #{page},5
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer" >
+        delete from emp where id=#{id}
+    </delete>
+    <update id="update"  parameterType="com.my.model.Emp">
+        update emp set `name`=#{name},empId=#{empId},phone=#{phone},email=#{email} where id=#{id}
+    </update>
+</mapper>
